@@ -45,6 +45,8 @@ error_reporting(E_ALL ^ E_NOTICE);
             {
                 echo $database->error;
                 $vys['start_cislo'] = $ucastnik->start_cislo;
+                $vys['start_cas'] = $ucastnik->start_cas;
+                $vys['si_cip'] = $ucastnik->si_cip_zavodni;
                 $vys['jmeno'] = $ucastnik->a_jmeno . " " . $ucastnik->a_prijmeni;
                 if ($ucastnik->b_jmeno || $ucastnik->b_prijmeni) $vys['jmeno'] .= " / " . $ucastnik->b_jmeno . " " . $ucastnik->b_prijmeni;
                 if ($ucastnik->tym <> '') $vys['jmeno'] .= " [{$ucastnik->tym}]";
@@ -88,6 +90,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                 }
                 
                 $vysledky[$ucastnik->kategorie][] = $vys;
+                unset($carddata);
                 unset($vys);
             }
 
@@ -142,6 +145,54 @@ error_reporting(E_ALL ^ E_NOTICE);
                             echo 'DIS';
                     echo "</td>";
                     echo "</tr>";
+                    if (isset($_GET['details']))
+                    {
+                        $carddata = new SportIdent($vys['si_cip']);
+                        $carddata->loadStampsFromDB();
+                        $carddata->loadPointsFromDB();
+
+                        echo "<tr>";
+                        echo "<td>&nbsp;</td>";
+                        echo "<td colspan='8'>";
+
+                        $lasttime = $vys['start_cas'];
+
+                        echo "<table border=1 cellpadding=3 cellspacing=1 rules=cols frame=vsides><tr>";
+                        foreach ($carddata->stamps as $stamp)
+                        {
+                            if ($stamp['stamp_control_code'] >= 30)
+                            {
+                                echo "<td align='center'><font size='1'>";
+                                echo "<b>{$stamp['stamp_control_code']}</b> ({$carddata->points[$stamp['stamp_control_code']]})<br />";
+                                $mezicas = get_time_difference($lasttime, $stamp['stamp_punch_datetime']);
+                                $mezicasf = sprintf( '%02d:%02d:%02d', $mezicas['hours'], $mezicas['minutes'], $mezicas['seconds']);
+                                echo "{$mezicasf}<br />";
+                                $celkcas = get_time_difference($vys['start_cas'], $stamp['stamp_punch_datetime']);
+                                $celkcasf = sprintf( '%02d:%02d:%02d', $celkcas['hours'], $celkcas['minutes'], $celkcas['seconds']);
+                                echo "{$celkcasf}";
+                                $lasttime = $stamp['stamp_punch_datetime'];
+                                echo "</font></td>";
+                            }
+                            if (($stamp['stamp_control_code'] < 30) && ($stamp['stamp_control_mode'] == 4))
+                            {
+                                echo "<td align='center'><font size='1'>";
+                                echo "<b>CÍL</b><br />";
+                                $mezicas = get_time_difference($lasttime, $stamp['stamp_punch_datetime']);
+                                $mezicasf = sprintf( '%02d:%02d:%02d', $mezicas['hours'], $mezicas['minutes'], $mezicas['seconds']);
+                                echo "{$mezicasf}<br />";
+                                $celkcas = get_time_difference($vys['start_cas'], $stamp['stamp_punch_datetime']);
+                                $celkcasf = sprintf( '%02d:%02d:%02d', $celkcas['hours'], $celkcas['minutes'], $celkcas['seconds']);
+                                echo "{$celkcasf}";
+                                $lasttime = $stamp['stamp_punch_datetime'];
+                                echo "</font></td>";
+                            }
+                        }
+                        echo "<tr></table>";
+                        echo "</td>";
+                        echo "</tr>";
+                        
+                        unset($carddata);
+                    }
                 }
                 echo "</table>";
                 echo "<br />";

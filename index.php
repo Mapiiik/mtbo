@@ -13,6 +13,7 @@
         <a href="hill-climb.php" title="Zadávání výjezdů">Zadávání výjezdů</a><br />
         <br />
         <a href="overview.php" title="Přehled výsledků">Přehled výsledků</a><br />
+        <a href="statistics.php" title="Statistika kontrol">Statistika kontrol</a><br />
         <br />
         <a href="load.php" title="Načítání účastníků">Načítání účastníků</a><br />
         <?php

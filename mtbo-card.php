@@ -103,7 +103,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                     echo "<td align='center'>{$points}</td>";
                     echo "</tr>";
                 }
-                if ($stamp['stamp_control_code'] == 0)
+                if (($stamp['stamp_control_code'] < 30) && ($stamp['stamp_control_mode'] == 4))
                 {
                     echo "<tr>";
                     echo "<td align='center'><b>CÍL</b></td>";

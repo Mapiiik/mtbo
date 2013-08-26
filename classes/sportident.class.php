@@ -29,7 +29,7 @@ class SportIdent
         $result = $database->query("SELECT * FROM stamps WHERE stamp_card_id = {$this->card_id} ORDER BY id_stamp;");
         while ($line = $result->fetch_assoc())
         {
-            if ($line['stamp_control_code'] == 0) $end = true;
+            if (($line['stamp_control_code'] < 30) && ($line['stamp_control_mode'] == 4)) $end = true;
             else if ($end)
             {
                 $this->stamps = array();
