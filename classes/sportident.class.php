@@ -36,7 +36,7 @@ class SportIdent
                 unset($end);
             }
             
-            if ($this->card_id < 500000)
+            if (($this->card_id > 500) && ($this->card_id < 500000))
             {
                 $xdatetime = explode(' ', $line['stamp_punch_datetime']);
                 $xtime = explode(':', $xdatetime[1]);

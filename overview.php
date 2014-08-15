@@ -66,11 +66,11 @@ error_reporting(E_ALL ^ E_NOTICE);
                 echo $database->error;
                 $vys['body_mtb'] = max(array($vyjezd->a1,$vyjezd->a2)) + max(array($vyjezd->b1,$vyjezd->b2));
 
-                if ($celkcas['hours'] >= 6)
+                if ($celkcas['hours'] >= 5)
                 {
                     $vys['penalizace'] = NULL;
                 }
-                else if ($celkcas['hours'] >= 5)
+                else if ($celkcas['hours'] >= 4)
                 {
                     $vys['penalizace'] = $celkcas['minutes'] * 5;
                 }
@@ -160,7 +160,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                         echo "<table border=1 cellpadding=3 cellspacing=1 rules=cols frame=vsides><tr>";
                         foreach ($carddata->stamps as $stamp)
                         {
-                            if ($stamp['stamp_control_code'] >= 30)
+                            if ($stamp['stamp_control_code'] >= 10)
                             {
                                 echo "<td align='center'><font size='1'>";
                                 echo "<b>{$stamp['stamp_control_code']}</b> ({$carddata->points[$stamp['stamp_control_code']]})<br />";
@@ -173,7 +173,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                                 $lasttime = $stamp['stamp_punch_datetime'];
                                 echo "</font></td>";
                             }
-                            if (($stamp['stamp_control_code'] < 30) && ($stamp['stamp_control_mode'] == 4))
+                            if (($stamp['stamp_control_code'] < 10) && ($stamp['stamp_control_mode'] == 4))
                             {
                                 echo "<td align='center'><font size='1'>";
                                 echo "<b>CÍL</b><br />";

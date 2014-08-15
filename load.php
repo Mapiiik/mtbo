@@ -54,7 +54,7 @@ error_reporting(E_ALL ^ E_NOTICE);
                           if ($data[$index['b_jmeno']]) $insert['insert']['b_jmeno'] = $data[$index['b_jmeno']];
                           if ($data[$index['b_rok']]) $insert['insert']['b_datum_narozeni'] = $data[$index['b_rok']] . '-' . $data[$index['b_mesic']] . '-' . $data[$index['b_den']];
                           $insert['insert']['si_cip'] = $data[$index['SI']];
-                          $insert['insert']['tym'] = $data[$index['tym']];
+                          $insert['insert']['tym'] = addslashes($data[$index['tym']]);
                           $insert['insert']['email'] = $data[$index['email']];
                           $insert['insert']['telefon'] = $data[$index['telefon']];
                           $insert['insert']['zaplatit'] = $data[$index['zaplatit']];

@@ -11,6 +11,7 @@
         <a href="mtbo-card-history.php" title="Historie vyhodnocení MTBO">Historie vyhodnocení MTBO</a><br />
         <br />
         <a href="hill-climb.php" title="Zadávání výjezdů">Zadávání výjezdů</a><br />
+        <a href="manual-readout.php" title="Ruční načtení průkazky">Ruční načtení průkazky</a><br />
         <br />
         <a href="overview.php" title="Přehled výsledků">Přehled výsledků</a><br />
         <a href="statistics.php" title="Statistika kontrol">Statistika kontrol</a><br />
